@@ -80,5 +80,20 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback{
     @Override
     public void onSuccessLogin(String result) {
         Log.e("Login response",result);
+        try{
+            JSONObject obj=new JSONObject(result);
+            String status=obj.getString("success");
+            if(status.equals("true")){
+                JSONObject sessionObj=obj.getJSONObject("result");
+                String ssid=sessionObj.getString("sessionName");
+                Intent i=new Intent(LoginActivity.this,TestActivity.class);
+                i.putExtra("ssid",ssid);
+                startActivity(i);
+
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

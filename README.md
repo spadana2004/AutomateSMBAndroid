@@ -1,2 +1,0 @@
-# AutomateSMBAndroid
-Vtiger Automate SMB
