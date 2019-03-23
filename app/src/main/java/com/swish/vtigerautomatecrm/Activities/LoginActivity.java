@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback{
                     Map<String,String> dataMap=new HashMap<>();
                     dataMap.put("requestbody",accesskey);
                     String url=AppConstants.login;
-                    operations.postJSOnRequestMutipart(url,dataMap,LoginActivity.this);
+                    operations.postJSOnRequestMutipart(url,dataMap,LoginActivity.this,1);
                 }
             }
             catch (JSONException e){

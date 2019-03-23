@@ -16,8 +16,10 @@ import com.swish.vtigerautomatecrm.VolleyWebservice.NetworkOperations;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class TestActivity extends AppCompatActivity implements VolleyCallback {
-    Button listTypes,describeoprn;
+    Button listTypes,describeoprn,create,retrieve,update,delete;
     String ssid;
     int state;
     String typeString;
@@ -45,6 +47,49 @@ public class TestActivity extends AppCompatActivity implements VolleyCallback {
                 state=1;
             }
         });
+        create=(Button)findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkOperations obr1=NetworkOperations.getInstance();
+                HashMap<String,String> map=new HashMap<>();
+                map.put("ssid",ssid);
+                obr1.postJSOnRequestMutipart(AppConstants.baseUrl+AppConstants.webserviceExtention,map,TestActivity.this,2);
+                state=3;
+            }
+        });
+        retrieve=(Button)findViewById(R.id.retrieve);
+        retrieve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("Retrieve Link",""+AppConstants.baseUrl+AppConstants.webserviceExtention+AppConstants.retrieve+ssid+"&id=12x6");
+                NetworkOperations obr1=NetworkOperations.getInstance();
+                obr1.getJSONObjRequestVolley(TestActivity.this,AppConstants.baseUrl+AppConstants.webserviceExtention+AppConstants.retrieve+ssid+"&id=12x10");
+                state=4;
+            }
+        });
+        update=(Button)findViewById(R.id.update);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkOperations obr1=NetworkOperations.getInstance();
+                HashMap<String,String> map=new HashMap<>();
+                map.put("ssid",ssid);
+                obr1.postJSOnRequestMutipart(AppConstants.baseUrl+AppConstants.webserviceExtention,map,TestActivity.this,3);
+                state=5;
+            }
+        });
+        delete=(Button)findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkOperations obr1=NetworkOperations.getInstance();
+                HashMap<String,String> map=new HashMap<>();
+                map.put("ssid",ssid);
+                obr1.postJSOnRequestMutipart(AppConstants.baseUrl+AppConstants.webserviceExtention,map,TestActivity.this,4);
+                state=6;
+            }
+        });
     }
 
     @Override
@@ -66,6 +111,30 @@ public class TestActivity extends AppCompatActivity implements VolleyCallback {
         if(state==2){
             try {
                 Log.e("Describe Operation ",result);
+            }
+            catch (Exception e){
+
+            }
+        }
+        if(state==3){
+            try {
+                Log.e("Create Operation ",result);
+            }
+            catch (Exception e){
+
+            }
+        }
+        if(state==4){
+            try {
+                Log.e("Retrieve Operation ",result);
+            }
+            catch (Exception e){
+
+            }
+        }
+        if(state==5){
+            try {
+                Log.e("Update Operation ",result);
             }
             catch (Exception e){
 

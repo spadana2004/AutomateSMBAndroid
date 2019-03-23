@@ -33,5 +33,5 @@ public interface VolleyInterface {
     public void postStringRequestWithHeadersWithParams(String url, final Map<String, String> requestbody);
 
     //Making Multipart form request
-    public void postJSOnRequestMutipart(String url, final Map<String, String> requestbody,VolleyCallback volleyCallback);
+    public void postJSOnRequestMutipart(String url, final Map<String, String> requestbody,VolleyCallback volleyCallback,int type);
 }
