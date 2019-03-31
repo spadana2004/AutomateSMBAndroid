@@ -12,6 +12,8 @@ public class AppConstants {
     final public static String retrieve="?operation=retrieve&sessionName=";
     final public static String describeOperationsPart1=baseUrl+"webservice.php?operation=describe&sessionName=";
     final public static String describeOperationsPart2="&elementType=";
+    //Shared Prefs
+    final public static String AppPrefs="AutomateSMB";
 
 }
 

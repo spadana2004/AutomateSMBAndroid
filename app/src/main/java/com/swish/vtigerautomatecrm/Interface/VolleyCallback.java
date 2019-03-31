@@ -1,6 +1,6 @@
 package com.swish.vtigerautomatecrm.Interface;
 
 public interface VolleyCallback{
-    void onSuccess(String result);
-    void onSuccessLogin(String result);
+    void onSuccess(String result,String type);
+    void onSuccessLogin(String result,String type);
 }

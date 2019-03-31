@@ -48,7 +48,7 @@ public class NetworkOperations implements VolleyInterface {
 
     //Making GET request with json object request
     @Override
-    public void getJSONObjRequestVolley(final VolleyCallback volleyCallback,String url) {
+    public void getJSONObjRequestVolley(final VolleyCallback volleyCallback, String url, final String type) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
@@ -57,7 +57,7 @@ public class NetworkOperations implements VolleyInterface {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("Response",response.toString());
-                        volleyCallback.onSuccess(response.toString());
+                        volleyCallback.onSuccess(response.toString(),type);
 
                     }
                 }, new Response.ErrorListener() {
@@ -316,14 +316,18 @@ public class NetworkOperations implements VolleyInterface {
         AppApplication.getInstance().addToRequestQueue(stringRequest,AppConstants.NETWORKTAG);
     }
 
-    public void postJSOnRequestMutipart(String url, final Map<String, String> requestbody, final VolleyCallback volleyCallback, final int type){
+    public void postJSOnRequestMutipart(String url, final Map<String, String> requestbody, final VolleyCallback volleyCallback, final String type){
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
 
                 String resultResponse = new String(response.data);
-                Log.e("Response",resultResponse);
-                volleyCallback.onSuccessLogin(resultResponse);
+                if(type.equals("LoginThree")) {
+                    volleyCallback.onSuccessLogin(resultResponse, type);
+                }
+                else{
+                    volleyCallback.onSuccess(resultResponse, type);
+                }
                 // parse success output
             }
         }, new Response.ErrorListener() {
@@ -335,45 +339,51 @@ public class NetworkOperations implements VolleyInterface {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                if(type==1) {
+                if(type.equals("LoginThree")) {
                     params.put("operation", "login");
                     params.put("username", "admin");
                     params.put("accessKey", requestbody.get("requestbody"));
                 }
-                if(type==2) {
-                    try {
-
-                        JSONObject object = new JSONObject("{\"lastname\":\"admin\",\"assigned_user_id\":\"19x1\"}");
-                        Log.e("Test",object.toString());
-                        params.put("operation", "create");
+                else if(type.equals("HomeOne")) {
+                    params.put("operation", "create");
                         params.put("sessionName", requestbody.get("ssid"));
                         params.put("element", "{\"lastname\":\"admin\",\"assigned_user_id\":\"19x1\"}");
-                        params.put("elementType", "Contacts");
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
+                        params.put("elementType", requestbody.get("module"));
                 }
-                if(type==3) {
-                    try {
-                        params.put("operation", "update");
-                        params.put("sessionName", requestbody.get("ssid"));
-                        params.put("element", "{\"id\":\"12x10\",\"firstname\":\"admin\",\"lastname\":\"admin\",\"assigned_user_id\":\"19x1\"}");
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-                if(type==4) {
-                    try {
-                        params.put("operation", "delete");
-                        params.put("sessionName", requestbody.get("ssid"));
-                        params.put("id", "12x10");
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
+//                if(type==2) {
+//                    try {
+//
+//                        JSONObject object = new JSONObject("{\"lastname\":\"admin\",\"assigned_user_id\":\"19x1\"}");
+//                        Log.e("Test",object.toString());
+//                        params.put("operation", "create");
+//                        params.put("sessionName", requestbody.get("ssid"));
+//                        params.put("element", "{\"lastname\":\"admin\",\"assigned_user_id\":\"19x1\"}");
+//                        params.put("elementType", "Contacts");
+//                    }
+//                    catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//                }
+//                if(type==3) {
+//                    try {
+//                        params.put("operation", "update");
+//                        params.put("sessionName", requestbody.get("ssid"));
+//                        params.put("element", "{\"id\":\"12x11\",\"firstname\":\"admin\",\"lastname\":\"admin\",\"assigned_user_id\":\"19x1\"}");
+//                    }
+//                    catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//                }
+//                if(type==4) {
+//                    try {
+//                        params.put("operation", "delete");
+//                        params.put("sessionName", requestbody.get("ssid"));
+//                        params.put("id", "12x11");
+//                    }
+//                    catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//                }
                 return params;
             }
 

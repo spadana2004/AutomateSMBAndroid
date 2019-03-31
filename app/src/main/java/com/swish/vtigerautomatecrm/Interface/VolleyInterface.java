@@ -9,7 +9,7 @@ import java.util.Map;
 public interface VolleyInterface {
 
     //Making GET JSON Object request
-    public void getJSONObjRequestVolley(VolleyCallback volleyCallback,String url);
+    public void getJSONObjRequestVolley(VolleyCallback volleyCallback,String url,String type);
 
     //Making GET JSON Array request
     public void getJSONArrayRequestVolley(String url);
@@ -33,5 +33,5 @@ public interface VolleyInterface {
     public void postStringRequestWithHeadersWithParams(String url, final Map<String, String> requestbody);
 
     //Making Multipart form request
-    public void postJSOnRequestMutipart(String url, final Map<String, String> requestbody,VolleyCallback volleyCallback,int type);
+    public void postJSOnRequestMutipart(String url, final Map<String, String> requestbody,VolleyCallback volleyCallback,String type);
 }

@@ -15,7 +15,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
-        getSupportActionBar().hide();
         letsStart=(Button)findViewById(R.id.splshbutton);
         letsStart.setOnClickListener(new View.OnClickListener() {
             @Override
